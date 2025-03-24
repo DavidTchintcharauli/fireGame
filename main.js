@@ -23,7 +23,7 @@ const gameConfig = {
   treeWidth: 20,
   treeHeight: 50,
   circleRadius: 20,
-  waterZone: { x: 200, y: 150, width: 400, height: 300 },
+  waterZone: { x: 200, y: 150, width: 400, height: 300, borderRadius: 40 },
   grassColor: "#8FBC8F",
   waterColor: "#00CED1",
   treeColor: "#228B22",
