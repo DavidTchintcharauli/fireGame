@@ -10,11 +10,9 @@ export const drawFirefighter = (ctx, firefighter, config) => {
         firefighter.velocityY = (firefighter.velocityY / speed) * maxSpeed;
     }
 
-    // Move the firefighter randomly
     firefighter.x += firefighter.velocityX;
     firefighter.y += firefighter.velocityY;
 
-    // Keep firefighter within canvas bounds
     if (firefighter.x < 0 || firefighter.x + firefighter.size > firefighter.canvasWidth) {
         firefighter.velocityX = -firefighter.velocityX;
     }
@@ -22,7 +20,6 @@ export const drawFirefighter = (ctx, firefighter, config) => {
         firefighter.velocityY = -firefighter.velocityY;
     }
 
-    // Prevent firefighter from entering the water zone
     const isInWater =
         firefighter.x + firefighter.size > config.waterZone.x &&
         firefighter.x < config.waterZone.x + config.waterZone.width &&
@@ -30,11 +27,10 @@ export const drawFirefighter = (ctx, firefighter, config) => {
         firefighter.y < config.waterZone.y + config.waterZone.height;
 
     if (isInWater) {
-        firefighter.velocityY = -firefighter.velocityY; // Reverse direction vertically
-        firefighter.velocityX = -firefighter.velocityX; // Reverse direction horizontally
+        firefighter.velocityY = -firefighter.velocityY;
+        firefighter.velocityX = -firefighter.velocityX;
     }
 
-    // Draw the firefighter
     ctx.fillStyle = firefighter.color;
     ctx.beginPath();
     ctx.arc(

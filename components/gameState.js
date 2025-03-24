@@ -11,7 +11,6 @@ export const resetGameState = (config) => {
     gameState.gameOver = false;
     gameState.score = 0;
 
-    // Reset trees to their initial positions and states
     config.trees.forEach(tree => {
         tree.x = tree.originalX;
         tree.y = tree.originalY;

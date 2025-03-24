@@ -53,7 +53,7 @@ const gameConfig = {
       size: 30,
       velocityX: -2,
       velocityY: 2,
-      color: "purple",
+      color: "blue",
       canvasWidth: 800,
       canvasHeight: 600,
       groundLevel: 600,
@@ -68,7 +68,7 @@ const gameConfig = {
         size: 30,
         velocityX: -4,
         velocityY: 2,
-        color: "yellow",
+        color: "blue",
         canvasWidth: 800,
         canvasHeight: 600,
         groundLevel: 600,
@@ -110,12 +110,10 @@ const drawGame = () => {
     drawFirefighter(ctx, firefighter, gameConfig);
   });
 
-  // Draw score
   ctx.fillStyle = "black";
   ctx.font = "20px Arial";
   ctx.fillText(`Score: ${gameState.score}`, 120, 30);
 
-  // Check collision with each firefighter
   for (const firefighter of gameConfig.firefighters) {
     const dx = gameState.circleX - firefighter.x;
     const dy = gameState.circleY - firefighter.y;
@@ -132,7 +130,6 @@ const drawGame = () => {
     }
   }
 
-  // Check for collision with water (which could be in checkCollision)
   if (checkCollision(gameState.circleX, gameState.circleY, gameConfig)) {
     gameState.gameOver = true;
     displayGameOver(
