@@ -12,16 +12,17 @@ import { setupMovementListeners, handleMovement } from "./utils/movement.js";
 const { canvas, ctx, startButton, tryAgainButton } = initDOMElements();
 
 setupMovementListeners();
+let lakeOffset = 0;
 
 const plantImage = new Image();
 plantImage.src = gameConfig.plant.imageSrc;
 
 const drawGame = () => {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  lakeOffset += 0.5;
 
   handleMovement(gameState, gameConfig);
-
-  drawMap(ctx, gameConfig);
+  drawMap(ctx, gameConfig, lakeOffset);
   drawCircle(ctx, gameState.circleX, gameState.circleY, gameConfig.circle);
 
   gameConfig.firefighters.forEach((firefighter) => {
@@ -63,6 +64,7 @@ const drawGame = () => {
     requestAnimationFrame(drawGame);
   }
 };
+
 
 const startGame = () => {
   startButton.style.display = "none";
