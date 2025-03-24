@@ -163,18 +163,21 @@ startButton.addEventListener("click", startGame);
 tryAgainButton.addEventListener("click", resetGame);
 window.addEventListener("keydown", event => {
   if (!gameState.gameOver) {
+    const speed = gameConfig.circle.speed;
+    const radius = gameConfig.circle.radius;
+
     switch (event.key) {
       case "ArrowLeft":
-        gameState.circleX -= gameConfig.circle.speed;
+        gameState.circleX = Math.max(radius, gameState.circleX - speed);
         break;
       case "ArrowRight":
-        gameState.circleX += gameConfig.circle.speed;
+        gameState.circleX = Math.min(gameConfig.canvasWidth - radius, gameState.circleX + speed);
         break;
       case "ArrowUp":
-        gameState.circleY -= gameConfig.circle.speed;
+        gameState.circleY = Math.max(radius, gameState.circleY - speed);
         break;
       case "ArrowDown":
-        gameState.circleY += gameConfig.circle.speed;
+        gameState.circleY = Math.min(gameConfig.canvasHeight - radius, gameState.circleY + speed);
         break;
     }
   }
