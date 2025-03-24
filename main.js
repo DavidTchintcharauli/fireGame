@@ -6,99 +6,13 @@ import { drawMap } from "./components/map.js";
 import { drawPlant } from "./components/plant.js";
 import { checkCollision } from "./utils/collision.js";
 import { initDOMElements } from "./utils/domUtils.js";
+import { gameConfig } from "./config/config.js";
 
 import { setupMovementListeners, handleMovement } from "./utils/movement.js";
 
 const { canvas, ctx, startButton, tryAgainButton } = initDOMElements();
 
 setupMovementListeners();
-
-const gameConfig = {
-  canvasWidth: 800,
-  canvasHeight: 600,
-  plant: {
-    x: 10,
-    y: 10,
-    width: 50,
-    height: 100,
-    imageSrc: "./assets/plant.png",
-  },
-  circle: { x: 400, y: 570, radius: 20, color: "red", speed: 5 },
-  treeWidth: 20,
-  treeHeight: 50,
-  circleRadius: 20,
-  waterZone: { x: 200, y: 150, width: 400, height: 300, borderRadius: 40 },
-  grassColor: "#8FBC8F",
-  waterColor: "#00CED1",
-  treeColor: "#228B22",
-  trunkColor: "#8B4513",
-  burningTreeColor: "red",
-  firefighters: [
-    {
-      x: 600,
-      y: 100,
-      originalX: 600,
-      originalY: 100,
-      size: 30,
-      velocityX: 2,
-      velocityY: 2,
-      color: "blue",
-      canvasWidth: 800,
-      canvasHeight: 600,
-      groundLevel: 600,
-      randomness: 0.5,
-      maxSpeed: 5,
-    },
-    {
-      x: 100,
-      y: 200,
-      originalX: 100,
-      originalY: 200,
-      size: 30,
-      velocityX: -2,
-      velocityY: 2,
-      color: "blue",
-      canvasWidth: 800,
-      canvasHeight: 600,
-      groundLevel: 600,
-      randomness: 0.5,
-      maxSpeed: 5,
-    },
-    {
-      x: 100,
-      y: 500,
-      originalX: 200,
-      originalY: 50,
-      size: 30,
-      velocityX: -4,
-      velocityY: 2,
-      color: "blue",
-      canvasWidth: 800,
-      canvasHeight: 600,
-      groundLevel: 600,
-      randomness: 0.5,
-      maxSpeed: 5,
-    },
-  ],
-  trees: [
-    {
-      x: 50,
-      y: 300,
-      burning: false,
-      velocity: 2,
-      originalX: 50,
-      originalY: 300,
-    },
-    {
-      x: 700,
-      y: 300,
-      burning: false,
-      velocity: -2,
-      originalX: 700,
-      originalY: 300,
-    },
-  ],
-};
 
 const plantImage = new Image();
 plantImage.src = gameConfig.plant.imageSrc;
