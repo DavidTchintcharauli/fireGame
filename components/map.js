@@ -1,25 +1,39 @@
 export const drawTree = (ctx, tree, config) => {
     tree.x += tree.velocity;
-
+  
     const isInWater =
-        tree.x + config.treeWidth > config.waterZone.x &&
-        tree.x < config.waterZone.x + config.waterZone.width;
-
+      tree.x + config.treeWidth > config.waterZone.x &&
+      tree.x < config.waterZone.x + config.waterZone.width;
+  
     if (isInWater) {
-        tree.burning = false;
-        tree.velocity = -tree.velocity;
+      tree.burning = false;
+      tree.velocity = -tree.velocity;
     } else if (tree.x < 0 || tree.x + config.treeWidth > config.canvasWidth) {
-        tree.velocity = -tree.velocity; 
+      tree.velocity = -tree.velocity;
     }
-
+  
     ctx.fillStyle = config.trunkColor;
-    ctx.fillRect(tree.x, tree.y + config.treeHeight, config.treeWidth, config.treeHeight);
-
+    ctx.fillRect(tree.x + config.treeWidth / 2 - 5, tree.y + config.treeHeight, 10, config.treeHeight);
+  
     ctx.fillStyle = tree.burning ? config.burningTreeColor : config.treeColor;
+  
     ctx.beginPath();
-    ctx.arc(tree.x + config.treeWidth / 2, tree.y + config.treeHeight - 20, 30, 0, Math.PI * 2);
+    ctx.arc(tree.x + config.treeWidth / 2, tree.y + config.treeHeight - 30, 25, 0, Math.PI * 2);
     ctx.fill();
-};
+  
+    ctx.beginPath();
+    ctx.arc(tree.x + config.treeWidth / 2 - 20, tree.y + config.treeHeight - 10, 20, 0, Math.PI * 2);
+    ctx.fill();
+  
+    ctx.beginPath();
+    ctx.arc(tree.x + config.treeWidth / 2 + 20, tree.y + config.treeHeight - 10, 20, 0, Math.PI * 2);
+    ctx.fill();
+  
+    ctx.beginPath();
+    ctx.arc(tree.x + config.treeWidth / 2, tree.y + config.treeHeight + 5, 20, 0, Math.PI * 2);
+    ctx.fill();
+  };
+  
 
 const drawRoundedRect = (ctx, x, y, width, height, radius) => {
     ctx.beginPath();
