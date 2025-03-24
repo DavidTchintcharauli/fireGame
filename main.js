@@ -9,6 +9,14 @@ import { initDOMElements } from "./utils/domUtils.js";
 
 const { canvas, ctx, startButton, tryAgainButton } = initDOMElements();
 
+const keysPressed = {};
+window.addEventListener("keydown", (event) => {
+  keysPressed[event.key.toLowerCase()] = true;
+});
+window.addEventListener("keyup", (event) => {
+  keysPressed[event.key.toLowerCase()] = false;
+});
+
 const gameConfig = {
   canvasWidth: 800,
   canvasHeight: 600,
@@ -19,7 +27,7 @@ const gameConfig = {
     height: 100,
     imageSrc: "./assets/plant.png",
   },
-  circle: { x: 400, y: 570, radius: 20, color: "red", speed: 10 },
+  circle: { x: 400, y: 570, radius: 20, color: "red", speed: 5 },
   treeWidth: 20,
   treeHeight: 50,
   circleRadius: 20,
@@ -61,20 +69,20 @@ const gameConfig = {
       maxSpeed: 5,
     },
     {
-        x: 100,
-        y: 500,
-        originalX: 200,
-        originalY: 50,
-        size: 30,
-        velocityX: -4,
-        velocityY: 2,
-        color: "blue",
-        canvasWidth: 800,
-        canvasHeight: 600,
-        groundLevel: 600,
-        randomness: 0.5,
-        maxSpeed: 5,
-      },
+      x: 100,
+      y: 500,
+      originalX: 200,
+      originalY: 50,
+      size: 30,
+      velocityX: -4,
+      velocityY: 2,
+      color: "blue",
+      canvasWidth: 800,
+      canvasHeight: 600,
+      groundLevel: 600,
+      randomness: 0.5,
+      maxSpeed: 5,
+    },
   ],
   trees: [
     {
@@ -102,11 +110,36 @@ plantImage.src = gameConfig.plant.imageSrc;
 const drawGame = () => {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+  const speed = gameConfig.circle.speed;
+  const radius = gameConfig.circle.radius;
+  let moveX = 0;
+  let moveY = 0;
+
+  if (keysPressed["a"]) moveX -= 1;
+  if (keysPressed["d"]) moveX += 1;
+  if (keysPressed["w"]) moveY -= 1;
+  if (keysPressed["s"]) moveY += 1;
+
+  if (moveX !== 0 || moveY !== 0) {
+    const len = Math.sqrt(moveX * moveX + moveY * moveY);
+    moveX = (moveX / len) * speed;
+    moveY = (moveY / len) * speed;
+
+    gameState.circleX = Math.min(
+      gameConfig.canvasWidth - radius,
+      Math.max(radius, gameState.circleX + moveX)
+    );
+    gameState.circleY = Math.min(
+      gameConfig.canvasHeight - radius,
+      Math.max(radius, gameState.circleY + moveY)
+    );
+  }
+
   drawMap(ctx, gameConfig);
   drawPlant(ctx, gameConfig.plant, plantImage);
   drawCircle(ctx, gameState.circleX, gameState.circleY, gameConfig.circle);
 
-  gameConfig.firefighters.forEach(firefighter => {
+  gameConfig.firefighters.forEach((firefighter) => {
     drawFirefighter(ctx, firefighter, gameConfig);
   });
 
@@ -161,24 +194,3 @@ const resetGame = () => {
 
 startButton.addEventListener("click", startGame);
 tryAgainButton.addEventListener("click", resetGame);
-window.addEventListener("keydown", event => {
-  if (!gameState.gameOver) {
-    const speed = gameConfig.circle.speed;
-    const radius = gameConfig.circle.radius;
-
-    switch (event.key) {
-      case "a":
-        gameState.circleX = Math.max(radius, gameState.circleX - speed);
-        break;
-      case "d":
-        gameState.circleX = Math.min(gameConfig.canvasWidth - radius, gameState.circleX + speed);
-        break;
-      case "w":
-        gameState.circleY = Math.max(radius, gameState.circleY - speed);
-        break;
-      case "s":
-        gameState.circleY = Math.min(gameConfig.canvasHeight - radius, gameState.circleY + speed);
-        break;
-    }
-  }
-});
