@@ -1,32 +1,32 @@
 body {
     display: flex;
-    flex-direction: column; /* Stack items vertically */
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
-    height: 100vh; /* Full viewport height */
-    margin: 0; /* Remove default margin */
-    background-color: #f0f0f0; /* Optional background color */
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center; 
+    height: 100vh;
+    margin: 0; 
+    background-color: #f0f0f0; 
 }
 
 .button-container {
-    margin-bottom: 20px; /* Space between buttons and canvas */
+    margin-bottom: 20px; 
 }
 
 button {
-    padding: 10px 20px; /* Add padding for buttons */
-    font-size: 16px; /* Increase font size */
-    cursor: pointer; /* Change cursor to pointer */
-    border: none; /* Remove default border */
-    border-radius: 5px; /* Rounded corners */
-    background-color: #4CAF50; /* Green background */
-    color: white; /* White text color */
-    transition: background-color 0.3s; /* Smooth transition */
+    padding: 10px 20px; 
+    font-size: 16px;
+    cursor: pointer;
+    border: none; 
+    border-radius: 5px; 
+    background-color: #4CAF50; 
+    color: white;
+    transition: background-color 0.3s; 
 }
 
 button:hover {
-    background-color: #45a049; /* Darker green on hover */
+    background-color: #45a049;
 }
 
 canvas {
-    border: 1px solid black; /* Optional border */
+    border: 1px solid black;
 }

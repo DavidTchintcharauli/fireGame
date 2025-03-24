@@ -3,7 +3,6 @@ import { drawFirefighter } from "./components/firefighter.js";
 import { displayGameOver } from "./components/gameOver.js";
 import { gameState, resetGameState } from "./components/gameState.js";
 import { drawMap } from "./components/map.js";
-import { drawPlant } from "./components/plant.js";
 import { checkCollision } from "./utils/collision.js";
 import { initDOMElements } from "./utils/domUtils.js";
 import { gameConfig } from "./config/config.js";
@@ -23,7 +22,6 @@ const drawGame = () => {
   handleMovement(gameState, gameConfig);
 
   drawMap(ctx, gameConfig);
-  drawPlant(ctx, gameConfig.plant, plantImage);
   drawCircle(ctx, gameState.circleX, gameState.circleY, gameConfig.circle);
 
   gameConfig.firefighters.forEach((firefighter) => {

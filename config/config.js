@@ -6,7 +6,6 @@ export const gameConfig = {
       y: 10,
       width: 50,
       height: 100,
-      imageSrc: "./assets/plant.png",
     },
     circle: { x: 400, y: 570, radius: 20, color: "red", speed: 5 },
     treeWidth: 20,
