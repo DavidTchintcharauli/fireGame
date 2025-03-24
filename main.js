@@ -167,16 +167,16 @@ window.addEventListener("keydown", event => {
     const radius = gameConfig.circle.radius;
 
     switch (event.key) {
-      case "ArrowLeft":
+      case "a":
         gameState.circleX = Math.max(radius, gameState.circleX - speed);
         break;
-      case "ArrowRight":
+      case "d":
         gameState.circleX = Math.min(gameConfig.canvasWidth - radius, gameState.circleX + speed);
         break;
-      case "ArrowUp":
+      case "w":
         gameState.circleY = Math.max(radius, gameState.circleY - speed);
         break;
-      case "ArrowDown":
+      case "s":
         gameState.circleY = Math.min(gameConfig.canvasHeight - radius, gameState.circleY + speed);
         break;
     }
