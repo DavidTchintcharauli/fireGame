@@ -3,6 +3,7 @@ export const gameState = {
     circleY: 570,
     gameOver: false,
     score: 0,
+    language: "en",
   };
   
   export const resetGameState = (config) => {

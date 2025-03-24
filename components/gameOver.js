@@ -33,7 +33,7 @@ export const displayGameOver = (ctx, config, tryAgainButton, reason = 'Game Over
         textY += lineHeight;
     });
 
-    ctx.fillText('Try Again!', config.canvasWidth / 2, textY);
+    ctx.fillText('', config.canvasWidth / 2, textY);
 
     tryAgainButton.style.display = 'block';
     tryAgainButton.style.position = 'absolute';
