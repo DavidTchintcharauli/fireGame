@@ -81,3 +81,11 @@ const resetGame = () => {
 
 startButton.addEventListener("click", startGame);
 tryAgainButton.addEventListener("click", resetGame);
+
+window.addEventListener("keydown", (event) => {
+  if (gameState.gameOver) {
+    if (event.key === "Enter" || event.key === " ") {
+      resetGame();
+    }
+  }
+});

@@ -30,6 +30,7 @@ export const checkCollision = (circleX, circleY, config) => {
     if (distance < burnThreshold) {
       if (!tree.burning) {
         tree.burning = true;
+        tree.burningStartTime = performance.now();
       }
 
       if (!tree.scored) {

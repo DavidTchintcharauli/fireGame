@@ -1,38 +1,68 @@
 export const drawTree = (ctx, tree, config) => {
-    tree.x += tree.velocity;
+  tree.x += tree.velocity;
 
-    const isInWater =
-        tree.x + config.treeWidth > config.waterZone.x &&
-        tree.x < config.waterZone.x + config.waterZone.width;
+  const isInWater =
+    tree.x + config.treeWidth > config.waterZone.x &&
+    tree.x < config.waterZone.x + config.waterZone.width;
 
-    if (isInWater) {
-        tree.burning = false;
-        tree.velocity = -tree.velocity;
-    } else if (tree.x < 0 || tree.x + config.treeWidth > config.canvasWidth) {
-        tree.velocity = -tree.velocity;
-    }
+  if (isInWater) {
+    tree.burning = false;
+    tree.burningProgress = 0;
+    tree.burningStartTime = null;
+    tree.scored = false;
+    tree.velocity = -tree.velocity;
+  } else if (tree.x < 0 || tree.x + config.treeWidth > config.canvasWidth) {
+    tree.velocity = -tree.velocity;
+  }
 
-    ctx.fillStyle = config.trunkColor;
-    ctx.fillRect(tree.x + config.treeWidth / 2 - 5, tree.y + config.treeHeight, 10, config.treeHeight);
+  ctx.fillStyle = config.trunkColor;
+  ctx.fillRect(tree.x + config.treeWidth / 2 - 5, tree.y + config.treeHeight, 10, config.treeHeight);
 
-    ctx.fillStyle = tree.burning ? config.burningTreeColor : config.treeColor;
+  if (tree.burning && tree.burningStartTime) {
+    const elapsed = performance.now() - tree.burningStartTime;
+    const duration = 2000;
+    tree.burningProgress = Math.min(elapsed / duration, 1);
+  }
 
+  const green = [34, 139, 34];
+  const red = [255, 0, 0];
+
+  const blend = tree.burningProgress;
+  const blendedColor = `rgb(
+    ${Math.floor(green[0] + (red[0] - green[0]) * blend)},
+    ${Math.floor(green[1] + (red[1] - green[1]) * blend)},
+    ${Math.floor(green[2] + (red[2] - green[2]) * blend)}
+  )`;
+
+  ctx.fillStyle = blendedColor;
+
+  ctx.beginPath();
+  ctx.arc(tree.x + config.treeWidth / 2, tree.y + config.treeHeight - 30, 25, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.beginPath();
+  ctx.arc(tree.x + config.treeWidth / 2 - 20, tree.y + config.treeHeight - 10, 20, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.beginPath();
+  ctx.arc(tree.x + config.treeWidth / 2 + 20, tree.y + config.treeHeight - 10, 20, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.beginPath();
+  ctx.arc(tree.x + config.treeWidth / 2, tree.y + config.treeHeight + 5, 20, 0, Math.PI * 2);
+  ctx.fill();
+
+  if (tree.burning && Math.random() < 0.2) {
+    const sx = tree.x + config.treeWidth / 2 + (Math.random() - 0.5) * 10;
+    const sy = tree.y + config.treeHeight - 40 + Math.random() * 10;
+
+    ctx.fillStyle = "rgba(200, 200, 200, 0.3)";
     ctx.beginPath();
-    ctx.arc(tree.x + config.treeWidth / 2, tree.y + config.treeHeight - 30, 25, 0, Math.PI * 2);
+    ctx.arc(sx, sy, 4, 0, Math.PI * 2);
     ctx.fill();
-
-    ctx.beginPath();
-    ctx.arc(tree.x + config.treeWidth / 2 - 20, tree.y + config.treeHeight - 10, 20, 0, Math.PI * 2);
-    ctx.fill();
-
-    ctx.beginPath();
-    ctx.arc(tree.x + config.treeWidth / 2 + 20, tree.y + config.treeHeight - 10, 20, 0, Math.PI * 2);
-    ctx.fill();
-
-    ctx.beginPath();
-    ctx.arc(tree.x + config.treeWidth / 2, tree.y + config.treeHeight + 5, 20, 0, Math.PI * 2);
-    ctx.fill();
+  }
 };
+
 
 
 const drawRoundedRect = (ctx, x, y, width, height, radius) => {
