@@ -1,30 +1,43 @@
 import { gameState } from "../components/gameState.js";
 
 export const checkCollision = (circleX, circleY, config) => {
-    const { x, y, width, height } = config.waterZone;
-    const radius = config.circle.radius;
+  const radius = config.circle.radius;
 
-    const waterCollision =
-        circleX + radius > x &&
-        circleX - radius < x + width &&
-        circleY + radius > y &&
-        circleY - radius < y + height;
+  const { x, y, width, height, borderRadius = 0 } = config.waterZone;
 
-    config.trees.forEach(tree => {
-        const distance = Math.sqrt(
-            Math.pow(circleX - (tree.x + 10), 2) +
-            Math.pow(circleY - (tree.y + 30), 2)
-        );
+  const cx = circleX;
+  const cy = circleY;
 
-        if (distance < radius + 30 && !tree.burning) {
-            tree.burning = true;
+  const nearestX = Math.max(x, Math.min(cx, x + width));
+  const nearestY = Math.max(y, Math.min(cy, y + height));
 
-            if (!tree.scored){
-                gameState.score += 1;
-                tree.score = true;
-            }
-        }
-    });
+  const dx = cx - nearestX;
+  const dy = cy - nearestY;
 
-    return waterCollision; 
+  const distanceToWater = Math.sqrt(dx * dx + dy * dy);
+  const inWater = distanceToWater < radius + borderRadius * 0.5;
+
+  config.trees.forEach((tree) => {
+    const tx = tree.x + config.treeWidth / 2;
+    const ty = tree.y + config.treeHeight;
+
+    const dx = circleX - tx;
+    const dy = circleY - ty;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+
+    const burnThreshold = radius + 30;
+
+    if (distance < burnThreshold) {
+      if (!tree.burning) {
+        tree.burning = true;
+      }
+
+      if (!tree.scored) {
+        gameState.score += 1;
+        tree.scored = true;
+      }
+    }
+  });
+
+  return inWater;
 };
