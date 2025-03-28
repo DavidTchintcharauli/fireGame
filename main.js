@@ -19,9 +19,6 @@ languageSelect.addEventListener("change", (e) => {
   gameState.language = e.target.value;
 });
 
-const plantImage = new Image();
-plantImage.src = gameConfig.plant.imageSrc;
-
 const drawGame = () => {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   lakeOffset += 0.5;
