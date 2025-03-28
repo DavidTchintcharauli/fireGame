@@ -1,7 +1,7 @@
 import { gameState } from "../components/gameState.js";
 
 export const checkCollision = (circleX, circleY, config) => {
-  const radius = config.circle.radius;
+  const radius = config.circle.radius * 0.2;
 
   const { x, y, width, height, borderRadius = 0 } = config.waterZone;
 
