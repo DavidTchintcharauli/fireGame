@@ -60,6 +60,14 @@ const drawGame = () => {
 };
 
 const startGame = () => {
+  const bgMusic = document.getElementById("bgMusic");
+  if (bgMusic) {
+    bgMusic.volume = 0.3;
+    bgMusic.play().catch((err) => {
+      console.log("Music play blocked by browser until user interacts:", err);
+    });
+  }
+  
   startButton.style.display = "none";
   canvas.style.display = "block";
   gameState.gameOver = false;
