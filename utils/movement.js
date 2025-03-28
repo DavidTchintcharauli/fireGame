@@ -20,7 +20,7 @@ export const handleMovement = (gameState, gameConfig) => {
   if (keysPressed["d"]) moveX += 1;
   if (keysPressed["w"]) moveY -= 1;
   if (keysPressed["s"]) moveY += 1;
-
+  
   if (moveX !== 0 || moveY !== 0) {
     const len = Math.sqrt(moveX * moveX + moveY * moveY);
     moveX = (moveX / len) * speed;

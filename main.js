@@ -67,7 +67,6 @@ const startGame = () => {
       console.log("Music play blocked by browser until user interacts:", err);
     });
   }
-  
   startButton.style.display = "none";
   canvas.style.display = "block";
   gameState.gameOver = false;

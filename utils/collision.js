@@ -1,5 +1,8 @@
 import { gameState } from "../components/gameState.js";
 
+const treeBurnSound = new Audio('./assets/burn.mp3');
+treeBurnSound.volume = 0.4;
+
 export const checkCollision = (circleX, circleY, config) => {
   const radius = config.circle.radius * 0.5;
 
@@ -31,6 +34,9 @@ export const checkCollision = (circleX, circleY, config) => {
       if (!tree.burning) {
         tree.burning = true;
         tree.burningStartTime = performance.now();
+
+        treeBurnSound.currentTime = 0;
+        treeBurnSound.play();
       }
 
       if (!tree.scored) {
