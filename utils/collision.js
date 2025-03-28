@@ -1,7 +1,7 @@
 import { gameState } from "../components/gameState.js";
 
 export const checkCollision = (circleX, circleY, config) => {
-  const radius = config.circle.radius * 0.2;
+  const radius = config.circle.radius * 0.5;
 
   const { x, y, width, height, borderRadius = 0 } = config.waterZone;
 
@@ -15,7 +15,7 @@ export const checkCollision = (circleX, circleY, config) => {
   const dy = cy - nearestY;
 
   const distanceToWater = Math.sqrt(dx * dx + dy * dy);
-  const inWater = distanceToWater < radius + borderRadius * 0.5;
+  const inWater = distanceToWater < radius + borderRadius * 0.1;
 
   config.trees.forEach((tree) => {
     const tx = tree.x + config.treeWidth / 2;
