@@ -8,10 +8,12 @@ import { initDOMElements } from "./utils/domUtils.js";
 import { gameConfig } from "./config/config.js";
 import { setupMovementListeners, handleMovement } from "./utils/movement.js";
 import { translations } from "./utils/translations.js";
+import { setupSoundToggle } from "./utils/soundToggle.js";
 
 const { canvas, ctx, startButton, tryAgainButton } = initDOMElements();
 
-setupMovementListeners();
+setupMovementListeners()
+setupSoundToggle();
 let lakeOffset = 0;
 
 const languageSelect = document.getElementById("languageSelect");

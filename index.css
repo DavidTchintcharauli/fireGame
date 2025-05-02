@@ -30,3 +30,15 @@ button:hover {
 canvas {
     border: 1px solid black;
 }
+
+.sound-toggle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: transparent;
+    font-size: 24px;
+    border: none;
+    cursor: pointer;
+    z-index: 9999;
+  }
+  
