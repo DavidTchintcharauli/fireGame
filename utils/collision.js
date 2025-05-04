@@ -3,6 +3,9 @@ import { gameState } from "../components/gameState.js";
 const treeBurnSound = new Audio('./assets/burn.mp3');
 treeBurnSound.volume = 0.4;
 
+const coinSound = new Audio('./assets/coinRecieved.mp3');
+coinSound.volume = 0.4;
+
 export const checkCollision = (circleX, circleY, config) => {
   const radius = config.circle.radius * 0.5;
 
@@ -31,20 +34,26 @@ export const checkCollision = (circleX, circleY, config) => {
     const burnThreshold = radius + 30;
 
     if (distance < burnThreshold) {
+      const isMuted = localStorage.getItem('soundMuted') === 'true';
+
       if (!tree.burning) {
         tree.burning = true;
         tree.burningStartTime = performance.now();
 
-        const isMuted = localStorage.getItem('soundMuted') === 'true';
         if (!isMuted) {
           treeBurnSound.currentTime = 0;
-          treeBurnSound.play();
+          treeBurnSound.play().catch((e) => console.warn("Burn sound error:", e));
         }
       }
 
       if (!tree.scored) {
         gameState.score += 1;
         tree.scored = true;
+
+        if (!isMuted) {
+          coinSound.currentTime = 0;
+          coinSound.play().catch((e) => console.warn("Coin sound error:", e));
+        }
       }
     }
   });

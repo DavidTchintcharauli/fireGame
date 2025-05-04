@@ -32,6 +32,7 @@ export const gameConfig = {
         groundLevel: 600,
         randomness: 0.5,
         maxSpeed: 5,
+        detectionRadius: 120,
       },
       {
         x: 100,
@@ -47,6 +48,7 @@ export const gameConfig = {
         groundLevel: 600,
         randomness: 0.5,
         maxSpeed: 7,
+        detectionRadius: 120,
       },
       {
         x: 100,
@@ -62,6 +64,7 @@ export const gameConfig = {
         groundLevel: 600,
         randomness: 0.6,
         maxSpeed: 9,
+        detectionRadius: 120,
       },
     ],
     trees: [

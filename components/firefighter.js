@@ -34,6 +34,14 @@ export const drawFirefighter = (ctx, firefighter, config) => {
     const centerX = firefighter.x + firefighter.size / 2;
     const centerY = firefighter.y + firefighter.size / 2;
     const size = firefighter.size;
+
+    ctx.beginPath();
+    ctx.arc(centerX, centerY, firefighter.detectionRadius, 0, Math.PI * 2);
+    ctx.strokeStyle = "rgba(255, 0, 0, 0.3)";
+    ctx.lineWidth = 1;
+    ctx.setLineDash([5, 5]);
+    ctx.stroke();
+    ctx.setLineDash([])
   
     ctx.fillStyle = "rgba(0, 0, 0, 0.2)";
     ctx.beginPath();

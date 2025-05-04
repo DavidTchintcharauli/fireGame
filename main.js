@@ -11,6 +11,7 @@ import { translations } from "./utils/translations.js";
 import { setupSoundToggle } from "./utils/soundToggle.js";
 import { playGameOverSound } from "./utils/gameOverSound.js";
 import { playExtinguishWithSmoke } from "./components/extinguish.js";
+import { updateFirefighterBehavior } from "./components/firefighterAI.js";
 
 const { canvas, ctx, startButton, tryAgainButton } = initDOMElements();
 console.log("StartGame clicked");
@@ -35,6 +36,7 @@ const drawGame = () => {
   drawCircle(ctx, gameState.circleX, gameState.circleY, gameConfig.circle);
 
   gameConfig.firefighters.forEach((firefighter) => {
+    updateFirefighterBehavior(firefighter, gameState.circleX, gameState.circleY);
     drawFirefighter(ctx, firefighter, gameConfig);
   });
 
