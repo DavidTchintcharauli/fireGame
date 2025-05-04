@@ -35,8 +35,11 @@ export const checkCollision = (circleX, circleY, config) => {
         tree.burning = true;
         tree.burningStartTime = performance.now();
 
-        treeBurnSound.currentTime = 0;
-        treeBurnSound.play();
+        const isMuted = localStorage.getItem('soundMuted') === 'true';
+        if (!isMuted) {
+          treeBurnSound.currentTime = 0;
+          treeBurnSound.play();
+        }
       }
 
       if (!tree.scored) {

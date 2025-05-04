@@ -6,13 +6,16 @@ import { drawMap } from "./components/map.js";
 import { checkCollision } from "./utils/collision.js";
 import { initDOMElements } from "./utils/domUtils.js";
 import { gameConfig } from "./config/config.js";
-import { setupMovementListeners, handleMovement } from "./utils/movement.js";
+import { setupMovementListeners, handleMovement, keysPressed  } from "./utils/movement.js";
 import { translations } from "./utils/translations.js";
 import { setupSoundToggle } from "./utils/soundToggle.js";
 import { playGameOverSound } from "./utils/gameOverSound.js";
 import { playExtinguishWithSmoke } from "./components/extinguish.js";
 
 const { canvas, ctx, startButton, tryAgainButton } = initDOMElements();
+console.log("StartGame clicked");
+console.log("circleX", gameState.circleX);
+console.log("keysPressed", keysPressed);
 
 setupMovementListeners()
 setupSoundToggle();
@@ -79,6 +82,8 @@ const startGame = () => {
   }
   startButton.style.display = "none";
   canvas.style.display = "block";
+  canvas.setAttribute("tabindex", "0");
+  canvas.focus();
   gameState.gameOver = false;
   drawGame();
 };
@@ -86,6 +91,7 @@ const startGame = () => {
 const resetGame = () => {
   resetGameState(gameConfig);
   tryAgainButton.style.display = "none";
+  canvas.focus();
   drawGame();
 };
 
