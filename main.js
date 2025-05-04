@@ -10,6 +10,7 @@ import { setupMovementListeners, handleMovement } from "./utils/movement.js";
 import { translations } from "./utils/translations.js";
 import { setupSoundToggle } from "./utils/soundToggle.js";
 import { playGameOverSound } from "./utils/gameOverSound.js";
+import { playExtinguishWithSmoke } from "./components/extinguish.js";
 
 const { canvas, ctx, startButton, tryAgainButton } = initDOMElements();
 
@@ -47,7 +48,9 @@ const drawGame = () => {
     if (distance < gameConfig.circle.radius + firefighter.size / 2) {
       gameState.gameOver = true;
       playGameOverSound();
-      displayGameOver(ctx, gameConfig, tryAgainButton, translations[lang].gameOverFirefighter);
+      playExtinguishWithSmoke(ctx, gameState.circleX, gameState.circleY, gameConfig.circle, () => {
+        displayGameOver(ctx, gameConfig, tryAgainButton, translations[lang].gameOverFirefighter);
+      });
       return;
     }
   }
@@ -55,7 +58,9 @@ const drawGame = () => {
   if (checkCollision(gameState.circleX, gameState.circleY, gameConfig)) {
     gameState.gameOver = true;
     playGameOverSound();
-    displayGameOver(ctx, gameConfig, tryAgainButton, translations[lang].gameOverWater);
+    playExtinguishWithSmoke(ctx, gameState.circleX, gameState.circleY, gameConfig.circle, () => {
+      displayGameOver(ctx, gameConfig, tryAgainButton, translations[lang].gameOverWater);
+    });
     return;
   }
 
