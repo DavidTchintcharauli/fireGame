@@ -4,7 +4,6 @@ export const updateFirefighterBehavior = (firefighter, playerX, playerY) => {
     const distance = Math.sqrt(dx * dx + dy * dy);
   
     if (distance < firefighter.detectionRadius) {
-      // დამახსოვრებული სიჩქარის მიხედვით გაიწიე მოთამაშისკენ
       const speed = Math.sqrt(firefighter.velocityX ** 2 + firefighter.velocityY ** 2);
       const angle = Math.atan2(dy, dx);
   
